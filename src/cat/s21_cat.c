@@ -13,33 +13,48 @@ struct s21_cat {
 } p;
 
 int main(int argc, char **argv) {
+  s21_size_t ok = 0;
   if (argc > 1) {
-    size_t count = argc - 1, i = 0;
-    while (count) {
+    s21_size_t count = 1, i = 0;
+    while (count != ((s21_size_t)argc + 1)) {
       if (argv[count][i] == '-') {
         for (i = 0; i < s21_strlen(argv[count]); i++) {
-          if (argv[count][i] == 'b')
-            p.OPT_B = 1;
-          else if (argv[count][i] == 'e')
-            p.OPT_E = 1;
-          else if (argv[count][i] == 's')
-            p.OPT_S = 1;
-          else if (argv[count][i] == 't')
-            p.OPT_T = 1;
-          else if (argv[count][i] == 'n')
-            p.OPT_T = 1;
+          switch (argv[count][i]) {
+            case 'b':
+              p.OPT_B = 1;
+              argv[count++] = "";
+              break;
+            case 'e':
+              p.OPT_E = 1;
+              argv[count++] = "";
+              break;
+            case 's':
+              p.OPT_S = 1;
+              argv[count++] = "";
+              break;
+            case 't':
+              p.OPT_T = 1;
+              argv[count++] = "";
+              break;
+            case 'n':
+              p.OPT_T = 1;
+              argv[count++] = "";
+              break;
+            default:
+              count++;
+              break;
+          }
         }
-        count--;
       } else {
-        char strFile[1000] = "";
+        char strFile[1000000] = "";
         p.p = fopen(argv[count], "r");
-        while (fgets(strFile, sizeof(strFile), p.p)) {
+        while (fgets(strFile, 1000000, p.p) != s21_NULL) {
           printf("%s", strFile);
         }
-        count--;
+        fclose(p.p);
+        count++;
       }
     }
-    printf("\nBEST: %d%d%d%d%d", p.OPT_B, p.OPT_E, p.OPT_S, p.OPT_T, p.OPT_N);
   }
-  return 0;
+  return ok;
 }
