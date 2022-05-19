@@ -66,25 +66,52 @@ int main(int argc, char **argv) {
         }
         count++;
       } else {
-        s21_size_t n = 1;
-        char strFile[BMAX] = "";
         p.p = fopen(argv[count], "r");
-        while (fgets(strFile, BMAX, p.p) != s21_NULL) {
-          if (p.OPT_B == 1 && p.p != s21_NULL) {
-            printf((*strFile != '\n') ? "%6lu\t%s" : "\n", n++, strFile);
-          } else if (p.OPT_N == 1 && p.p != s21_NULL) {
-            printf("%6lu\t%s", n++, strFile);
-          } else if (p.OPT_E == 1 && p.p != s21_NULL) {
-            printf("%6lu\t%s", n++, strFile);
-          } else if (p.OPT_B + p.OPT_E + p.OPT_S + p.OPT_T + p.OPT_N == 0 &&
-                     p.p != s21_NULL) {
-            printf("%s", strFile);
+        s21_size_t n = 1;
+        char printChar = getc(p.p);
+        char resChar = '\0';
+        // char strFile[BMAX] = "";
+        if (printChar == EOF) {
+          ok = 1;
+        } else {
+          if (p.OPT_N == 1 && p.p != s21_NULL) {
+            while ((resChar = getc(p.p)) != EOF) {
+              printf("%6lu\t", n++);
+              while (resChar != '\n') {
+                printf("%c", resChar);
+              }
+            }
           }
+          if (p.OPT_E == 1 && p.p != s21_NULL) {
+            while ((resChar = getc(p.p)) != EOF) {
+              if (resChar == '\n') printf("%c", '$');
+              printf("%c", resChar);
+            }
+          }
+          if (p.OPT_B + p.OPT_E + p.OPT_S + p.OPT_T + p.OPT_N == 0 &&
+              p.p != s21_NULL) {
+            while ((resChar = getc(p.p)) != EOF) {
+              printf("%c", resChar);
+            }
+          }
+          // while (fgets(strFile, BMAX, p.p) != s21_NULL) {
+          //   if (p.OPT_B == 1 && p.p != s21_NULL) {
+          //     printf((*strFile != '\n') ? "%6lu\t%s" : "\n", n++, strFile);
+          //   } else if (p.OPT_N == 1 && p.p != s21_NULL) {
+          //     printf("%6lu\t%s", n++, strFile);
+          //   } else if (p.OPT_E == 1 && p.p != s21_NULL) {
+          //     printf("%6lu\t%s", n++, strFile);
+          //   } else if (p.OPT_B + p.OPT_E + p.OPT_S + p.OPT_T + p.OPT_N == 0
+          //   &&
+          //              p.p != s21_NULL) {
+          //     // printf("%s", strFile);
+          //   }
+          // }
+          fclose(p.p);
+          count++;
         }
-        fclose(p.p);
-        count++;
       }
     }
+    return ok;
   }
-  return ok;
 }
