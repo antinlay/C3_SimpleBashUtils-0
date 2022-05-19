@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
   s21_size_t ok = 0;
   if (argc > 1) {
     s21_size_t count = 1, i = 0;
-    while (count != (s21_size_t)argc) {
+    while (count < (s21_size_t)argc) {
       if (argv[count][i] == '-') {
         for (i = 0; i < s21_strlen(argv[count]); i++) {
           switch (argv[count][i]) {
@@ -75,12 +75,21 @@ int main(int argc, char **argv) {
           ok = 1;
         } else {
           if (p.OPT_N == 1 && p.p != s21_NULL) {
+            printf("%6lu\t", n++);
             while ((resChar = getc(p.p)) != EOF) {
-              printf("%6lu\t", n++);
-              while (resChar != '\n') {
-                printf("%c", resChar);
+              if (resChar == '\n') {
+                printf("\n%6lu\t", n++);
+                continue;
               }
+              printf("%c", resChar);
+              // resChar = getc(p.p);
             }
+          }
+          if (p.OPT_S == 1 && p.p != s21_NULL) {
+            // while ((resChar = getc(p.p)) != EOF) {
+            //   if (resChar == '\n') printf("%c", '$');
+            //   printf("%c", resChar);
+            // }
           }
           if (p.OPT_E == 1 && p.p != s21_NULL) {
             while ((resChar = getc(p.p)) != EOF) {
