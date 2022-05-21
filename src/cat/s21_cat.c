@@ -19,16 +19,6 @@ void init() {
   p.p = NULL;
 }
 
-// void num_b(char **argv, size_t count) {
-//   char strFile[BMAX] = "";
-//   p.p = fopen(argv[count], "r");
-//   while (fgets(strFile, BMAX, p.p) != NULL) {
-//     size_t n = 0;
-//     printf("%d\t%s", n++, strFile);
-//   }
-//   fclose(p.p);
-// }
-
 int main(int argc, char **argv) {
   size_t ok = 0;
   if (argc > 1) {
@@ -63,76 +53,69 @@ int main(int argc, char **argv) {
         }
         count++;
       } else {
-        p.p = fopen(argv[count], "r");
         size_t n = 1;
-        char nextChar = '\0';
         char outputChar = '\0';
-        // char strFile[BMAX] = "";
-        if (nextChar == EOF) {
+        if ((p.p = fopen(argv[count], "r")) == NULL) {
           ok = 1;
         } else {
-          if (p.OPTION_N == 1 && p.p != NULL) {
+          if (p.OPTION_N == 1) {
             printf("%6lu\t", n++);
-            while ((outputChar = getc(p.p)) != EOF) {
+            while ((outputChar = fgetc(p.p)) != EOF) {
               if (outputChar == '\n') {
                 printf("\n%6lu\t", n++);
                 continue;
               }
               printf("%c", outputChar);
             }
-          }
-          if (p.OPTION_T == 1 && p.p != NULL) {
-            while ((outputChar = getc(p.p)) != EOF) {
+          } else if (p.OPTION_T == 1) {
+            while ((outputChar = fgetc(p.p)) != EOF) {
               if (outputChar == '\t') {
                 printf("%c%c", '^', 'I');
                 continue;
               }
               printf("%c", outputChar);
             }
-          }
-          if (p.OPTION_S == 1 && p.p != NULL) {
-            // nextChar = getc(p.p);
-            while ((outputChar = getc(p.p)) != EOF) {
-              if (outputChar == '\n' && nextChar == '\n') {
-                while (nextChar == '\n') {
-                  nextChar = getc(p.p);
-                  continue;
+          } else if (p.OPTION_B == 1) {
+            if ((outputChar = fgetc(p.p)) == '\n') printf("\n");
+            printf("%6lu\t", n++);
+            while ((outputChar = fgetc(p.p)) != EOF) {
+              if (outputChar == '\n') {
+                printf("\n");
+                while ((outputChar = fgetc(p.p)) == '\n') {
+                  printf("\n");
                 }
-                outputChar = nextChar;
+                printf("%6lu\t", n++);
               }
               printf("%c", outputChar);
             }
-          }
-          if (p.OPTION_E == 1 && p.p != NULL) {
-            while ((outputChar = getc(p.p)) != EOF) {
+          } else if (p.OPTION_S == 1) {
+            while ((outputChar = fgetc(p.p)) != EOF) {
+              printf("%c", outputChar);
+              if (outputChar == '\n') {
+                if ((outputChar = fgetc(p.p)) == '\n') {
+                  printf("%c", outputChar);
+                  while (outputChar == '\n') {
+                    outputChar = fgetc(p.p);
+                  }
+                  printf("%c", outputChar);
+                } else {
+                  printf("%c", outputChar);
+                }
+              }
+            }
+          } else if (p.OPTION_E == 1) {
+            while ((outputChar = fgetc(p.p)) != EOF) {
               if (outputChar == '\n') printf("%c", '$');
               printf("%c", outputChar);
             }
-          }
-          if (p.OPTION_B + p.OPTION_E + p.OPTION_S + p.OPTION_T + p.OPTION_N ==
-                  0 &&
-              p.p != NULL) {
-            while ((outputChar = getc(p.p)) != EOF) {
+          } else {
+            while ((outputChar = fgetc(p.p)) != EOF) {
               printf("%c", outputChar);
             }
           }
-          // while (fgets(strFile, BMAX, p.p) != NULL) {
-          //   if (p.OPTION_B == 1 && p.p != NULL) {
-          //     printf((*strFile != '\n') ? "%6lu\t%s" : "\n", n++, strFile);
-          //   } else if (p.OPTION_N == 1 && p.p != NULL) {
-          //     printf("%6lu\t%s", n++, strFile);
-          //   } else if (p.OPTION_E == 1 && p.p != NULL) {
-          //     printf("%6lu\t%s", n++, strFile);
-          //   } else if (p.OPTION_B + p.OPTION_E + p.OPTION_S + p.OPTION_T +
-          //   p.OPTION_N == 0
-          //   &&
-          //              p.p != NULL) {
-          //     // printf("%s", strFile);
-          //   }
-          // }
-          fclose(p.p);
-          count++;
         }
+        fclose(p.p);
+        count++;
       }
     }
     return ok;
