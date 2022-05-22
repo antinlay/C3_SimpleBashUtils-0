@@ -61,8 +61,10 @@ int main(int argc, char *argv[]) {
         } else {
           if (p.OPTION_N == 1 && p.OPTION_B != 1) printf("%6lu\t", n++);
           if (p.OPTION_B == 1) {
-            if ((outputChar = fgetc(p.p)) == '\n') printf("\n");
-            printf("%6lu\t", n++);
+            while ((outputChar = fgetc(p.p)) == '\n') {
+              printf("\n");
+            }
+            if (outputChar != '\n') printf("%6lu\t", n++);
           }
           if (p.OPTION_S == 1) printf("%c", outputChar);
           while ((outputChar = fgetc(p.p)) != EOF) {
@@ -85,25 +87,18 @@ int main(int argc, char *argv[]) {
                   if (p.OPTION_S == 1) printf("\n%c", outputChar);
                 }
                 if (p.OPTION_N == 1 || p.OPTION_B == 1) printf("\n%6lu\t", n++);
-                if (p.OPTION_T == 1) {
-                  if (outputChar == '\t') {
-                    printf("%c%c", '^', 'I');
-                  }
+                if (p.OPTION_N == 1 || p.OPTION_E == 1 || p.OPTION_T == 1)
+                  continue;
+              } else if (p.OPTION_T == 1) {
+                if (outputChar == '\t') {
+                  printf("%c%c", '^', 'I');
+                } else {
+                  printf("%c", outputChar);
                 }
-                // if (p.OPTION_S == 1) {
-                //   if ((outputChar = fgetc(p.p)) == '\n') {
-                // printf("%c", outputChar);
-                // while (outputChar == '\n') {
-                //   outputChar = fgetc(p.p);
-                // }
-                // printf("\n%c", outputChar);
-                // } else {
-                //   printf("\n%c", outputChar);
-                //   }
-                // }
-                if (p.OPTION_N == 1 || p.OPTION_E == 1) continue;
+
+              } else if (p.OPTION_T != 1 || outputChar != '\0') {
+                printf("%c", outputChar);
               }
-              printf("%c", outputChar);
             } else {
               printf("%c", outputChar);
             }
