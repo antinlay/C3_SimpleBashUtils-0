@@ -19,6 +19,14 @@ void init() {
   p.p = NULL;
 }
 
+void s21_toption(char outputChar){
+    if (outputChar == '\t') {
+       printf("%c%c", '^', 'I');
+    } else {
+    printf("%c", outputChar);
+    }
+}
+
 int main(int argc, char *argv[]) {
   size_t ok = 0;
   if (argc > 1) {
@@ -66,7 +74,12 @@ int main(int argc, char *argv[]) {
             }
             if (outputChar != '\n') printf("%6lu\t", n++);
           }
-          if (p.OPTION_S == 1) printf("%c", outputChar);
+          if (p.OPTION_S == 1) {
+            while ((outputChar = fgetc(p.p)) == '\n') {
+                continue;
+            }
+            printf("\n%c", outputChar);
+          }
           while ((outputChar = fgetc(p.p)) != EOF) {
             if (p.OPTION_N == 1 || p.OPTION_T == 1 || p.OPTION_B == 1 ||
                 p.OPTION_S == 1 || p.OPTION_E == 1) {
@@ -77,25 +90,24 @@ int main(int argc, char *argv[]) {
                   printf("%c", '$');
                 if (p.OPTION_B == 1 || p.OPTION_S == 1) {
                   if (p.OPTION_S == 1) {
-                    if ((outputChar = fgetc(p.p)) == '\n') {
-                      printf("%c", outputChar);
+                    while ((outputChar = fgetc(p.p)) == '\n') {
+                      continue;
                     }
+                    printf("\n");
                   }
-                  while ((outputChar = fgetc(p.p)) == '\n') {
-                    if (p.OPTION_B == 1) printf("%c", outputChar);
+                  if (p.OPTION_B == 1) {
+                    while ((outputChar = fgetc(p.p)) == '\n') {
+                        printf("%c", outputChar);
+                    }
                   }
                   if (p.OPTION_S == 1) printf("\n%c", outputChar);
                 }
                 if (p.OPTION_N == 1 || p.OPTION_B == 1) printf("\n%6lu\t", n++);
-                if (p.OPTION_N == 1 || p.OPTION_E == 1 || p.OPTION_T == 1)
+                if (p.OPTION_N == 1 || p.OPTION_E == 1)
                   continue;
+                if (p.OPTION_T == 1) printf("\n");
               } else if (p.OPTION_T == 1) {
-                if (outputChar == '\t') {
-                  printf("%c%c", '^', 'I');
-                } else {
-                  printf("%c", outputChar);
-                }
-
+              s21_toption(outputChar);
               } else if (p.OPTION_T != 1 || outputChar != '\0') {
                 printf("%c", outputChar);
               }
