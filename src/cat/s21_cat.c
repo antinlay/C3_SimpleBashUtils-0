@@ -117,7 +117,7 @@ int s21_file_read(char *argv[], size_t count) {
           printf("^");
           outputChar += 64;
         }
-        // if (outputChar == 127) outputChar
+        if (outputChar == 127) printf("^?");
       }
       printf("%c", outputChar);
       lastChar = outputChar;
