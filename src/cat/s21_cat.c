@@ -100,8 +100,11 @@ int s21_file_read(char *argv[], size_t count) {
           if (p.n) printf("%6d\t", countStr - 1);
           if (p.e) printf("$");
           printf("\n");
-        } else
+        } else {
+#ifdef __APPLE__
           countStr = 0;
+#endif
+        }
       }
       if (lastChar == '\n' && ((p.b && outputChar != '\n') || p.n)) {
         printf("%6d\t", countStr++);
