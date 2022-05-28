@@ -1,4 +1,6 @@
+#include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 struct cat {
@@ -97,7 +99,8 @@ int s21_file_read(char *argv[], size_t count) {
           }
           if (p.b) --countStr;
           if (p.n) printf("%6d\t", countStr - 1);
-          printf("%c\n", outputChar);
+          if (p.e) printf("$");
+          printf("\n");
         } else
           countStr = 0;
       }
@@ -112,12 +115,12 @@ int s21_file_read(char *argv[], size_t count) {
         printf("$");
       }
       if (p.v) {
+        if (outputChar == 127) printf("^?");
         if ((outputChar >= 0 && outputChar < 9) ||
             (outputChar > 10 && outputChar < 32)) {
           printf("^");
           outputChar += 64;
         }
-        if (outputChar == 127) printf("^?");
       }
       printf("%c", outputChar);
       lastChar = outputChar;
