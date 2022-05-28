@@ -105,7 +105,7 @@ int s21_file_read(char *argv[], size_t count) {
           if (p.e) printf("$");
           printf("\n");
         } else {
-#ifdef __APPLE__
+#ifdef __linux__
           countStr = 0;
 #endif
         }
@@ -135,6 +135,7 @@ int s21_file_read(char *argv[], size_t count) {
       printf("%c", outputChar);
       lastChar = outputChar;
     }
+    p.sumStr = countStr;
     fclose(p.p);
   } else {
     ok = -1;
