@@ -74,3 +74,8 @@ rm s21_cat.txt cat.txt
 cat -n bytes.txt bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
 rm s21_cat.txt cat.txt
+#15 -err
+./s21_cat -n bytes.txt byte1s.txt >> s21_cat.txt
+cat -n bytes.txt byte1s.txt >> cat.txt
+diff -s s21_cat.txt cat.txt
+rm s21_cat.txt cat.txt

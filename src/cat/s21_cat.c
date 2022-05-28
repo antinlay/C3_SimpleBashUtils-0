@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
       }
       count++;
     }
+  } else {
   }
   return ok;
 }
@@ -138,6 +139,7 @@ int s21_file_read(char *argv[], size_t count) {
     p.sumStr = countStr;
     fclose(p.file);
   } else {
+    fprintf(stderr, "cat: %s: No such file or directory\n", argv[count]);
     ok = -1;
   }
   return ok;
