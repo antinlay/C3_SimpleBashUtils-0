@@ -10,7 +10,7 @@ struct cat {
   int n;
   int v;
   int sumStr;
-  FILE *p;
+  FILE *file;
 } p;
 
 void init();
@@ -45,7 +45,7 @@ void init() {
   p.t = 0;
   p.n = 0;
   p.v = 0;
-  p.p = NULL;
+  p.file = NULL;
 }
 
 void s21_options(char arg) {
@@ -82,20 +82,20 @@ void s21_options(char arg) {
 }
 
 int s21_file_read(char *argv[], size_t count) {
-  p.p = fopen(argv[count], "r");
+  p.file = fopen(argv[count], "r");
   int ok = 0, countStr = 1;
 #ifdef __linux__
   if (count > 2) countStr = p.sumStr;
 #endif
   char outputChar = '\0';
   char lastChar = '\n';
-  if (p.p != NULL) {
-    while ((outputChar = fgetc(p.p)) != EOF) {
+  if (p.file != NULL) {
+    while ((outputChar = fgetc(p.file)) != EOF) {
       if (p.s && outputChar == '\n' && lastChar == '\n') {
         countStr++;
         char last = lastChar;
         if (countStr > 1) {
-          while ((outputChar = fgetc(p.p)) == '\n' && last == '\n') {
+          while ((outputChar = fgetc(p.file)) == '\n' && last == '\n') {
             last = outputChar;
             continue;
           }
@@ -136,7 +136,7 @@ int s21_file_read(char *argv[], size_t count) {
       lastChar = outputChar;
     }
     p.sumStr = countStr;
-    fclose(p.p);
+    fclose(p.file);
   } else {
     ok = -1;
   }
