@@ -29,7 +29,6 @@ int main(int argc, char *argv[]) {
           s21_options(arg);
         }
       } else {
-        // if (p.v) p.e = p.t = 0;
         if (p.b) p.n = 0;
         ok = s21_file_read(argv, count);
       }
@@ -114,12 +113,16 @@ int s21_file_read(char *argv[], size_t count) {
       if (p.e && outputChar == '\n') {
         printf("$");
       }
-      if (p.v) {
-        if (outputChar == 127) printf("^?");
+      if (p.v && iscntrl(outputChar)) {
         if ((outputChar >= 0 && outputChar < 9) ||
             (outputChar > 10 && outputChar < 32)) {
           printf("^");
           outputChar += 64;
+        }
+        if (outputChar == 127) {
+          printf("^?");
+          lastChar = outputChar;
+          continue;
         }
       }
       printf("%c", outputChar);

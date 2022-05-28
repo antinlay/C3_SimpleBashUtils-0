@@ -14,7 +14,7 @@ rm s21_cat.txt cat.txt
 cat -e bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
 rm s21_cat.txt cat.txt
-#4
+#4 -n
 ./s21_cat -n bytes.txt >> s21_cat.txt
 cat -n bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
@@ -29,17 +29,17 @@ rm s21_cat.txt cat.txt
 cat -t bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
 rm s21_cat.txt cat.txt
-#7 -net
-./s21_cat -net bytes.txt >> s21_cat.txt
-cat -net bytes.txt >> cat.txt
+#7 -ne
+./s21_cat -ne bytes.txt >> s21_cat.txt
+cat -ne bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
 rm s21_cat.txt cat.txt
-#8 -bet
-./s21_cat -bet bytes.txt >> s21_cat.txt
-cat -bet bytes.txt >> cat.txt
+#8 -be
+./s21_cat -be bytes.txt >> s21_cat.txt
+cat -be bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
 rm s21_cat.txt cat.txt
-#9 -st
+#9 -set
 ./s21_cat -set bytes.txt >> s21_cat.txt
 cat -set bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
@@ -62,5 +62,10 @@ rm s21_cat.txt cat.txt
 #13 -nb
 ./s21_cat -nb bytes.txt >> s21_cat.txt
 cat -nb bytes.txt >> cat.txt
+diff -s s21_cat.txt cat.txt
+rm s21_cat.txt cat.txt
+#14 -v
+./s21_cat -v bytes.txt >> s21_cat.txt
+cat -v bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
 rm s21_cat.txt cat.txt
