@@ -34,7 +34,7 @@ rm s21_cat.txt cat.txt
 cat -ne bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
 rm s21_cat.txt cat.txt
-#8 -be
+#8 -bet
 ./s21_cat -be bytes.txt >> s21_cat.txt
 cat -be bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
