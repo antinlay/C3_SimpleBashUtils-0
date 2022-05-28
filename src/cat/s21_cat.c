@@ -10,6 +10,7 @@ struct cat {
   int t;
   int n;
   int v;
+  int sumStr;
   FILE *p;
 } p;
 
@@ -84,6 +85,9 @@ void s21_options(char arg) {
 int s21_file_read(char *argv[], size_t count) {
   p.p = fopen(argv[count], "r");
   int ok = 0, countStr = 1;
+#ifdef __linux__
+  countStr = p.sumStr;
+#endif
   char outputChar = '\0';
   char lastChar = '\n';
   if (p.p != NULL) {
