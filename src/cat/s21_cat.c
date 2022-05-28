@@ -1,4 +1,3 @@
-#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -121,7 +120,7 @@ int s21_file_read(char *argv[], size_t count) {
       if (p.e && outputChar == '\n') {
         printf("$");
       }
-      if (p.v && iscntrl(outputChar)) {
+      if (p.v) {
         if ((outputChar >= 0 && outputChar < 9) ||
             (outputChar > 10 && outputChar < 32)) {
           printf("^");
