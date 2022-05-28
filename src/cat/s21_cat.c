@@ -86,7 +86,7 @@ int s21_file_read(char *argv[], size_t count) {
   p.p = fopen(argv[count], "r");
   int ok = 0, countStr = 1;
 #ifdef __linux__
-  countStr = p.sumStr;
+  if (count > 3) countStr = p.sumStr;
 #endif
   char outputChar = '\0';
   char lastChar = '\n';
@@ -105,8 +105,9 @@ int s21_file_read(char *argv[], size_t count) {
           if (p.e) printf("$");
           printf("\n");
         } else {
-#ifdef __linux__
           countStr = 0;
+#ifdef __linux__
+          if (count > 3) countStr = p.sumStr;
 #endif
         }
       }
