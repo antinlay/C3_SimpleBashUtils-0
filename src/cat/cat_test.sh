@@ -69,3 +69,8 @@ rm s21_cat.txt cat.txt
 cat -v bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
 rm s21_cat.txt cat.txt
+#15 -ne
+./s21_cat -n bytes.txt bytes.txt >> s21_cat.txt
+cat -n bytes.txt bytes.txt >> cat.txt
+diff -s s21_cat.txt cat.txt
+rm s21_cat.txt cat.txt
