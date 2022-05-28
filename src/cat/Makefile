@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-std=c11 -Wall -Werror -Wextra -g
 OS=$(shell uname)
 
-s21_cat:
+s21_cat: clean
 	$(CC) $(CFLAGS) s21_cat.c -o s21_cat
 	bash cat_test.sh
 
