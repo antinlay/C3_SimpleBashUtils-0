@@ -13,8 +13,8 @@ struct cat {
 } p;
 
 void init();
-void s21_options(char arg);
-int s21_file_read(char *argv[], size_t count);
+void options(char arg);
+int process_file(char *argv[], size_t count);
 
 int main(int argc, char *argv[]) {
   size_t ok = 0;
@@ -25,11 +25,11 @@ int main(int argc, char *argv[]) {
       if (argv[count][i] == '-') {
         for (i = 0; argv[count][i] && argv[count][i] != ' '; i++) {
           char arg = argv[count][i];
-          s21_options(arg);
+          options(arg);
         }
       } else {
         if (p.b) p.n = 0;
-        ok = s21_file_read(argv, count);
+        ok = process_file(argv, count);
       }
       count++;
     }
@@ -48,7 +48,7 @@ void init() {
   p.file = NULL;
 }
 
-void s21_options(char arg) {
+void options(char arg) {
   switch (arg) {
     case 'b':
       p.b = 1;
@@ -81,7 +81,7 @@ void s21_options(char arg) {
   }
 }
 
-int s21_file_read(char *argv[], size_t count) {
+int process_file(char *argv[], size_t count) {
   p.file = fopen(argv[count], "r");
   int ok = 0, countStr = 1;
 #ifdef __linux__
