@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 struct cat {
   int b;
@@ -137,7 +138,7 @@ int s21_file_read(char *argv[], size_t count) {
     p.sumStr = countStr;
     fclose(p.file);
   } else {
-    fprintf(stderr, "cat: %s: No such file or directory\n", argv[count]);
+    fprintf(stderr, "cat: %s: %s\n", argv[count], strerror(2));
     ok = -1;
   }
   return ok;
