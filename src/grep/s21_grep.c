@@ -17,19 +17,22 @@ struct greph {
   FILE *file;
 } p;
 
-int init();
-int s21_parser(int argc, char *argv[]);
+void init();
+int parser(int argc, char *argv[], char *phrase);
 
 int main(int argc, char *argv[]) {
-  char *greph = "GREPH";
-  regex_t preg;
-  char *pat = "PH";
-  printf("GREPH %d PREG %d", regcomp(&preg, pat, REG_EXTENDED), preg);
+  char greph[100] = "";
+  // regex_t preg;
+  // char *pat = "PH";
+  int ok = 0;
+  // printf("GREPH %d PREG %d", regcomp(&preg, pat, REG_EXTENDED), preg);
   // printf("");
-  return 0;
+  ok = parser(argc, argv, greph);
+  printf("GREPH: %s\n", greph);
+  return ok;
 }
 
-int init() {
+void init() {
   p.e = 0;
   p.i = 0;
   p.v = 0;
@@ -45,9 +48,6 @@ int init() {
 
 void options(char arg) {
   switch (arg) {
-    case 'e':
-      p.e = 1;
-      break;
     case 'i':
       p.i = 1;
       break;
@@ -69,15 +69,27 @@ void options(char arg) {
     case 's':
       p.s = 1;
       break;
-    case 'f':
-      p.f = 1;
-      break;
-    case 'o':
-      p.o = 1;
-      break;
     default:
       break;
   }
 }
 
-int s21_parser(int argc, char *argv[]) {}
+int parser(int argc, char *argv[], char *phrase) {
+  int flag = 0, ok = 0;
+  while ((flag = getopt(argc, argv, "e:ivclnhsf:o")) != -1) {
+    if (flag == 'e') {
+      p.e = 1;
+      sprintf(phrase, optarg);
+    } else if (flag) {
+      options(flag);
+    } else if (flag == 'f') {
+      p.f = 1;
+      sprintf(phrase, optarg);
+    } else if (flag == 'o') {
+      p.o = 1;
+    } else {
+      ok = -1;
+    }
+  }
+  return ok;
+}
