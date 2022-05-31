@@ -4,8 +4,8 @@ OS=$(shell uname)
 
 s21_grep: clean
 	$(CC) $(CFLAGS) s21_grep.c -o s21_grep
-	# bash cat_test.sh
-	./s21_grep -e -l -v -c -n -f -o
+	bash grep_test.sh
+	# ./s21_grep -e -l -v -c -n -f -o
 
 check:
 	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config s21_cat.c

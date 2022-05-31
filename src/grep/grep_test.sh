@@ -1,7 +1,7 @@
 #!/bin/bash
 #1
-./s21_grep bytes.txt >> s21_grep.txt
-grep bytes.txt >> grep.txt
+./s21_grep -e 127 bytes.txt >> s21_grep.txt
+grep -e 127 bytes.txt >> grep.txt
 diff -s s21_grep.txt grep.txt
 rm s21_grep.txt grep.txt
 #2 -b
