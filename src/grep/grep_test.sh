@@ -1,49 +1,49 @@
 #!/bin/bash
 #1
-./s21_grep -e 127 bytes.txt >> s21_grep.txt
-grep -e 127 bytes.txt >> grep.txt
+./s21_grep -e 127 s21_grep.c >> s21_grep.txt
+grep -e 127 s21_grep.c >> grep.txt
 diff -s s21_grep.txt grep.txt
 rm s21_grep.txt grep.txt
-#2 -b
-# ./s21_cat -b bytes.txt >> s21_cat.txt
-# cat -b bytes.txt >> cat.txt
-# diff -s s21_cat.txt cat.txt
-# rm s21_cat.txt cat.txt
-# #3 -e
-# ./s21_cat -e bytes.txt >> s21_cat.txt
-# cat -e bytes.txt >> cat.txt
-# diff -s s21_cat.txt cat.txt
-# rm s21_cat.txt cat.txt
-# #4 -n
-# ./s21_cat -n bytes.txt >> s21_cat.txt
-# cat -n bytes.txt >> cat.txt
-# diff -s s21_cat.txt cat.txt
-# rm s21_cat.txt cat.txt
-# #5 -s
-# ./s21_cat -s bytes.txt >> s21_cat.txt
-# cat -s bytes.txt >> cat.txt
-# diff -s s21_cat.txt cat.txt
-# rm s21_cat.txt cat.txt
-# #6 -t
-# ./s21_cat -t bytes.txt >> s21_cat.txt
-# cat -t bytes.txt >> cat.txt
-# diff -s s21_cat.txt cat.txt
-# rm s21_cat.txt cat.txt
-# #7 -ne
-# ./s21_cat -ne bytes.txt >> s21_cat.txt
-# cat -ne bytes.txt >> cat.txt
-# diff -s s21_cat.txt cat.txt
-# rm s21_cat.txt cat.txt
-# #8 -bet
-# ./s21_cat -be bytes.txt >> s21_cat.txt
-# cat -be bytes.txt >> cat.txt
-# diff -s s21_cat.txt cat.txt
-# rm s21_cat.txt cat.txt
-# #9 -set
-# ./s21_cat -set bytes.txt >> s21_cat.txt
-# cat -set bytes.txt >> cat.txt
-# diff -s s21_cat.txt cat.txt
-# rm s21_cat.txt cat.txt
+#2 -i
+./s21_grep -i e s21_grep.c >> s21_grep.txt
+grep -i e s21_grep.c >> grep.txt
+diff -s s21_grep.txt grep.txt
+rm s21_grep.txt grep.txt
+# #3 -v
+./s21_grep -v e s21_grep.c > s21_grep.txt
+grep -v e s21_grep.c > grep.txt
+diff -s s21_grep.txt grep.txt
+rm s21_grep.txt grep.txt
+# #4 -c
+./s21_grep -c e s21_grep.c > s21_grep.txt
+grep -c e s21_grep.c > grep.txt
+diff -s s21_grep.txt grep.txt
+rm s21_grep.txt grep.txt
+# #5 -l
+./s21_grep -l e s21_grep.c s21_grep.c s21_grep.c > s21_grep.txt
+grep -l e s21_grep.c s21_grep.c s21_grep.c > grep.txt
+diff -s s21_grep.txt grep.txt
+rm s21_grep.txt grep.txt
+# #6 -n
+./s21_grep -n e s21_grep.c > s21_grep.txt
+grep -n e s21_grep.c > grep.txt
+diff -s s21_grep.txt grep.txt
+rm s21_grep.txt grep.txt
+# #7 -h
+./s21_grep -h e s21_grep.c > s21_grep.txt
+grep -h e s21_grep.c > grep.txt
+diff -s s21_grep.txt grep.txt
+rm s21_grep.txt grep.txt
+# #8 -s
+./s21_grep -s e s21_grep.c > s21_grep.txt
+grep -s e s21_grep.c > grep.txt
+diff -s s21_grep.txt grep.txt
+rm s21_grep.txt grep.txt
+# #9 -f
+./s21_grep -f phrase.txt s21_grep.c > s21_grep.txt
+grep -f phrase.txt s21_grep.c > grep.txt
+diff -s s21_grep.txt grep.txt
+rm s21_grep.txt grep.txt
 # #10 -sv
 # ./s21_cat -sv bytes.txt >> s21_cat.txt
 # cat -sv bytes.txt >> cat.txt
