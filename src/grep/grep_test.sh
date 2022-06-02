@@ -44,11 +44,11 @@ rm s21_grep.txt grep.txt
 grep -f phrase.txt s21_grep.c > grep.txt
 diff -s s21_grep.txt grep.txt
 rm s21_grep.txt grep.txt
-# #10 -sv
-# ./s21_cat -sv bytes.txt >> s21_cat.txt
-# cat -sv bytes.txt >> cat.txt
-# diff -s s21_cat.txt cat.txt
-# rm s21_cat.txt cat.txt
+# #10 -o
+./s21_grep -o '[[:alnum:]+\.\_\-]*@[[:alnum:]+\.\_\-]*' emails.txt > s21_grep.txt
+grep -o '[[:alnum:]+\.\_\-]*@[[:alnum:]+\.\_\-]*' emails.txt > grep.txt
+diff -s s21_grep.txt grep.txt
+rm s21_grep.txt grep.txt
 # #11 -sn
 # ./s21_cat -sn bytes.txt >> s21_cat.txt
 # cat -sn bytes.txt >> cat.txt
