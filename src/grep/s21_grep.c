@@ -24,6 +24,7 @@ int phrase_file(char *phrase, char *buff);
 void greph(char *phrase, char *fileName);
 void edit_file(regex_t rgx, char *fileName);
 void greph_logic(int argc, char *argv[], char *buff);
+void options(char flag, char *phrase);
 
 int main(int argc, char *argv[]) {
   char greph[BSIZE] = "";
@@ -48,8 +49,19 @@ void init() {
   p.file = NULL;
 }
 
-void options(char arg) {
-  switch (arg) {
+void options(char flag, char *phrase) {
+  switch (flag) {
+    case 'e':
+      p.e = 1;
+      snprintf(phrase, BSIZE, optarg);
+      break;
+    case 'f':
+      p.f = 1;
+      snprintf(phrase, BSIZE, optarg);
+      break;
+    case 'o':
+      p.o = 1;
+      break;
     case 'i':
       p.i = 1;
       break;
@@ -79,16 +91,8 @@ void options(char arg) {
 int parser(int argc, char *argv[], char *phrase) {
   int flag = 0, ok = 0;
   while ((flag = getopt(argc, argv, "e:ivclnhsf:o")) != -1) {
-    if (flag == 'e') {
-      p.e = 1;
-      sprintf(phrase, optarg);
-    } else if (flag) {
-      options(flag);
-    } else if (flag == 'f') {
-      p.f = 1;
-      sprintf(phrase, optarg);
-    } else if (flag == 'o') {
-      p.o = 1;
+    if (flag) {
+      options(flag, phrase);
     } else {
       ok = -1;
     }
@@ -108,10 +112,10 @@ int phrase_file(char *phrase, char *buff) {
       if (symb == 13 || symb == 10) phrase[i++] = '|';
       if (symb != 13 && symb != 10) phrase[i++] = symb;
     }
-    if (phrase[--i] == '|') phrase[--i] = '\0';
+    if (phrase[i - 1] == '|') phrase[i - 1] = '\0';
     fclose(p.file);
   }
-  return i == -1 ? i : ++i;
+  return (i == -1) ? i : (i + 1);
 }
 
 void greph(char *phrase, char *fileName) {
@@ -155,12 +159,12 @@ void edit_file(regex_t rgx, char *fileName) {
 }
 
 void greph_logic(int argc, char *argv[], char *buff) {
-  char phrase[BSIZE] = "";
+  char phrase[BSIZE] = {0};
   int ok = 0;
 
-  if (!p.f && !p.e) snprintf(phrase, BSIZE, argv[optind++]);
+  if (!p.f && !p.e) sprintf(phrase, argv[optind++]);
   if (p.f) ok = phrase_file(phrase, buff);
-  if (!p.f && p.e) snprintf(phrase, BSIZE, buff);
+  if (!p.f && p.e) sprintf(phrase, buff);
 
   if (ok != -1) {
     int fileFlag = (argc - optind > 1) ? 1 : 0;
