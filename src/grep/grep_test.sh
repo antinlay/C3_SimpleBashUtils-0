@@ -1,4 +1,5 @@
 #!/bin/bash
+cd grep/
 #1
 ./s21_grep -e 127 s21_grep.c >> s21_grep.txt
 grep -e 127 s21_grep.c >> grep.txt
@@ -79,3 +80,4 @@ rm s21_grep.txt grep.txt
 # cat -n bytes.txt byte1s.txt >> cat.txt
 # diff -s s21_cat.txt cat.txt
 # rm s21_cat.txt cat.txt
+cd ..

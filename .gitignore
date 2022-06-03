@@ -54,3 +54,5 @@ dkms.conf
 .vscode/
 a.out
 s21_cat
+.DS_Store
+src/.DS_Store

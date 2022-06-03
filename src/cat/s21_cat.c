@@ -1,20 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-
-struct cat {
-  int b;
-  int e;
-  int s;
-  int t;
-  int n;
-  int v;
-  int sumStr;
-  FILE *file;
-} p;
-
-void init();
-void options(char arg);
-int process_file(char *argv[], size_t count);
+#include "s21_cat.h"
 
 int main(int argc, char *argv[]) {
   size_t ok = 0;
@@ -22,8 +6,9 @@ int main(int argc, char *argv[]) {
   if (argc > 1) {
     size_t count = 1, i = 0;
     while (count < (size_t)argc) {
+      i = 0;
       if (argv[count][i] == '-') {
-        for (i = 0; argv[count][i] && argv[count][i] != ' '; i++) {
+        for (; argv[count][i]; i++) {
           char arg = argv[count][i];
           options(arg);
         }

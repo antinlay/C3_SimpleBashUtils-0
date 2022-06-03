@@ -1,4 +1,5 @@
 #!/bin/bash
+cd cat/
 #1
 ./s21_cat bytes.txt >> s21_cat.txt
 cat bytes.txt >> cat.txt
@@ -35,8 +36,8 @@ cat -ne bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
 rm s21_cat.txt cat.txt
 #8 -bet
-./s21_cat -be bytes.txt >> s21_cat.txt
-cat -be bytes.txt >> cat.txt
+./s21_cat -b -e bytes.txt >> s21_cat.txt
+cat -b -e bytes.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
 rm s21_cat.txt cat.txt
 #9 -set
@@ -79,3 +80,4 @@ rm s21_cat.txt cat.txt
 cat -n bytes.txt byte1s.txt >> cat.txt
 diff -s s21_cat.txt cat.txt
 rm s21_cat.txt cat.txt
+cd ..
