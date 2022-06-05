@@ -1,11 +1,11 @@
 #include "s21_grep.h"
 
 int main(int argc, char *argv[]) {
-  char greph[BSIZE] = "";
+  char greph[BSIZE] = {0};
   int ok = 0;
   init();
   ok = parser(argc, argv, greph);
-  if (argc >= 3 && ok != 1) greph_logic(argc, argv, greph);
+  if (argc >= 3 && ok != -1) greph_logic(argc, argv, greph);
   return ok;
 }
 
@@ -23,15 +23,16 @@ void init() {
   p.file = NULL;
 }
 
-void options(char flag, char *phrase) {
+int options(char flag, char *phrase) {
+  int ok = 0;
   switch (flag) {
     case 'e':
       p.e = 1;
-      snprintf(phrase, BSIZE, optarg);
+      sprintf(phrase, optarg);
       break;
     case 'f':
       p.f = 1;
-      snprintf(phrase, BSIZE, optarg);
+      sprintf(phrase, optarg);
       break;
     case 'o':
       p.o = 1;
@@ -58,19 +59,48 @@ void options(char flag, char *phrase) {
       p.s = 1;
       break;
     default:
+      ok = -1;
       break;
   }
+  return ok;
 }
+
+// int flag_parser(int argc, char *argv[], char *phrase) {
+//   size_t ok = 0;
+//   int flag = 0;
+//   char buff[BSIZE]
+//   if (argc > 1) {
+//     size_t count = 1, i = 0;
+//     while (count < (size_t)argc) {
+//       i = 0;
+//       if (argv[count][i] == '-') {
+//         for (; argv[count][i]; i++) {
+//           char flag = argv[count][i];
+//           options(flag, phrase);
+//         }
+//       } else {
+//         ok = phrase_file(phrase, buff);
+//       }
+//       count++;
+//     }
+//   }
+//   return ok;
+// }
 
 int parser(int argc, char *argv[], char *phrase) {
   int flag = 0, ok = 0;
-  while ((flag = getopt(argc, argv, "e:ivclnhsf:o")) != -1) {
+  for (int j = 1; j <= argc; j++) {
+    // optreset = 1;
+    // optind = 1;
+    flag = getopt(argc, argv, "e:ivclnhsf:o");
+    // printf("OPTSTR %s\n", argv[optind]);
     if (flag) {
       options(flag, phrase);
     } else {
       ok = -1;
     }
   }
+
   return ok;
 }
 
@@ -135,7 +165,7 @@ void edit_file(regex_t rgx, char *fileName) {
 void greph_logic(int argc, char *argv[], char *buff) {
   char phrase[BSIZE] = {0};
   int ok = 0;
-
+  // printf("OPTIND %d", optind);
   if (!p.f && !p.e) sprintf(phrase, argv[optind++]);
   if (p.f) ok = phrase_file(phrase, buff);
   if (!p.f && p.e) sprintf(phrase, buff);

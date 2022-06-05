@@ -27,6 +27,6 @@ int phrase_file(char *phrase, char *buff);
 void greph(char *phrase, char *fileName);
 void edit_file(regex_t rgx, char *fileName);
 void greph_logic(int argc, char *argv[], char *buff);
-void options(char flag, char *phrase);
+int options(char flag, char *phrase);
 
 #endif  // SRC_GREP_S21_GREP_H_
