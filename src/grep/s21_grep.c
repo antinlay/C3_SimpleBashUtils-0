@@ -65,42 +65,24 @@ int options(char flag, char *phrase) {
   return ok;
 }
 
-// int flag_parser(int argc, char *argv[], char *phrase) {
-//   size_t ok = 0;
-//   int flag = 0;
-//   char buff[BSIZE]
-//   if (argc > 1) {
-//     size_t count = 1, i = 0;
-//     while (count < (size_t)argc) {
-//       i = 0;
-//       if (argv[count][i] == '-') {
-//         for (; argv[count][i]; i++) {
-//           char flag = argv[count][i];
-//           options(flag, phrase);
-//         }
-//       } else {
-//         ok = phrase_file(phrase, buff);
-//       }
-//       count++;
-//     }
-//   }
-//   return ok;
-// }
-
 int parser(int argc, char *argv[], char *phrase) {
   int flag = 0, ok = 0;
   for (int j = 1; j <= argc; j++) {
-    // optreset = 1;
-    // optind = 1;
     flag = getopt(argc, argv, "e:ivclnhsf:o");
-    // printf("OPTSTR %s\n", argv[optind]);
     if (flag) {
       options(flag, phrase);
     } else {
       ok = -1;
     }
   }
-
+  for (int j = argc; j > 0; j--) {
+    flag = getopt(argc, argv, "e:ivclnhsf:o");
+    if (flag) {
+      options(flag, phrase);
+    } else {
+      ok = -1;
+    }
+  }
   return ok;
 }
 
@@ -174,7 +156,7 @@ void greph_logic(int argc, char *argv[], char *buff) {
     int fileFlag = (argc - optind > 1) ? 1 : 0;
 
     for (int i = optind; i < argc; i++) {
-      if (fileFlag && !p.h && !p.l) printf("%s:", argv[i]);
+      if (fileFlag && !p.h && !p.l && !p.o) printf("%s:", argv[i]);
       greph(phrase, argv[i]);
     }
   }

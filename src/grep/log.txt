@@ -1,0 +1,18 @@
+
+s21_grep.c s21_grep.h Makefile -c for
+s21_grep.c s21_grep.h Makefile -e for
+-e void s21_grep.c s21_grep.h Makefile
+s21_grep.c s21_grep.h Makefile -n for
+-n void s21_grep.c s21_grep.h Makefile
+s21_grep.c s21_grep.h Makefile -o for
+-o void s21_grep.c s21_grep.h Makefile
+s21_grep.c s21_grep.h Makefile -v for
+-v void s21_grep.c s21_grep.h Makefile
+s21_grep.c s21_grep.h Makefile -i for
+-i void s21_grep.c s21_grep.h Makefile
+s21_grep.c s21_grep.h Makefile -s for
+-s void s21_grep.c s21_grep.h Makefile
+s21_grep.c s21_grep.h Makefile -h for
+s21_grep.c s21_grep.h Makefile -l for
+s21_grep.c s21_grep.h Makefile -o for
+-o void s21_grep.c s21_grep.h Makefile
