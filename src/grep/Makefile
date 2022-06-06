@@ -19,4 +19,4 @@ else
 endif
 
 clean:
-	rm -rf cat/s21_cat cat/s21_cat.dSYM s21_grep s21_grep.dSYM *.o RESULT_VALGRIND.txt
+	rm -rf cat/s21_cat cat/s21_cat.dSYM s21_grep s21_grep.dSYM *.o RESULT_VALGRIND.txt log.txt
