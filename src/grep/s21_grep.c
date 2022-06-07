@@ -119,6 +119,8 @@ void greph(char *phrase, char *fileName) {
 
 void edit_file(regex_t rgx, char *fileName) {
   char text[BSIZE] = "";
+  char lastFileName[BSIZE] = "";
+  strcpy(lastFileName, fileName);
   regmatch_t match[1];
   int strMatch = 0, numStr = 1;
 
@@ -131,7 +133,14 @@ void edit_file(regex_t rgx, char *fileName) {
     if (numMatch && !p.l && !p.c && p.n) printf("%d:", numStr);
     if (numMatch && !p.l && !p.c && !p.o) printf("%s", text);
 
+    if (numMatch &&
+        (p.c + p.e + p.f + p.h + p.i + p.l + p.n + p.o + p.s + p.v == 0)) {
+      printf((strcmp(lastFileName, fileName)) ? "%s:\n" : "%s:", fileName);
+      strcpy(lastFileName, fileName);
+    }
+
     if (p.o && numMatch) {
+      // printf("%s:", fileName);
       for (int i = match[0].rm_so; i < match[0].rm_eo; i++) {
         printf("%c", text[i]);
       }
@@ -147,7 +156,6 @@ void edit_file(regex_t rgx, char *fileName) {
 void greph_logic(int argc, char *argv[], char *buff) {
   char phrase[BSIZE] = {0};
   int ok = 0;
-  // printf("OPTIND %d", optind);
   if (!p.f && !p.e) sprintf(phrase, argv[optind++]);
   if (p.f) ok = phrase_file(phrase, buff);
   if (!p.f && p.e) sprintf(phrase, buff);
@@ -157,6 +165,8 @@ void greph_logic(int argc, char *argv[], char *buff) {
 
     for (int i = optind; i < argc; i++) {
       if (fileFlag && !p.h && !p.l && !p.o) printf("%s:", argv[i]);
+      // if (p.c + p.e + p.f + p.h + p.i + p.l + p.n + p.o + p.s + p.v == 0)
+      //   printf("%s:", argv[i]);
       greph(phrase, argv[i]);
     }
   }

@@ -3,6 +3,7 @@
 
 #include <regex.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #define BSIZE 1000000
 
