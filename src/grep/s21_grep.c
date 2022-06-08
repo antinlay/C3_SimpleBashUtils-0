@@ -81,14 +81,6 @@ int parser(int argc, char *argv[], char *phrase) {
       ok = -1;
     }
   }
-  // for (int j = argc; j > 0; j--) {
-  //   flag = getopt(argc, argv, "e:ivclnhsf:o");
-  //   if (flag) {
-  //     options(flag, phrase);
-  //   } else {
-  //     ok = -1;
-  //   }
-  // }
   return ok;
 }
 
@@ -125,8 +117,6 @@ void greph(char *phrase, char *fileName) {
 
 void edit_file(regex_t rgx, char *fileName) {
   char text[BSIZE] = "";
-  // char lastFileName[BSIZE] = "";
-  // strcpy(lastFileName, fileName);
   regmatch_t match[1];
   int strMatch = 0, numStr = 1;
 
