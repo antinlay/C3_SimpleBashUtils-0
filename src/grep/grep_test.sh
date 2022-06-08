@@ -120,7 +120,7 @@ grep -ho int phrase.txt pattern.txt > grep.txt
 diff -s s21_grep.txt grep.txt
 rm s21_grep.txt grep.txt
 # #24 -err
-./s21_grep -nf s21_grep.c s21_grep.h > s21_grep.txt
-grep -nf s21_grep.c s21_grep.h > grep.txt
+./s21_grep -nf phrase.txt pattern.txt > s21_grep.txt
+grep -nf phrase.txt pattern.txt > grep.txt
 diff -s s21_grep.txt grep.txt
 rm s21_grep.txt grep.txt

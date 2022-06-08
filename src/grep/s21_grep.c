@@ -136,15 +136,11 @@ void edit_file(regex_t rgx, char *fileName) {
 
     if ((regStatus == 0 && !p.v) || (regStatus == REG_NOMATCH && p.v))
       numMatch = 1;
-    if (numMatch &&
-        (p.c + p.e + p.f + p.h + p.i + p.l + p.n + p.o + p.s + p.v == 0)) {
-      printf("%s:", fileName);
-    }
+    if (numMatch && no_flags() == 1) printf("%s:", fileName);
     if (numMatch && !p.l && !p.c && p.n) printf("%d:", numStr);
     if (numMatch && !p.l && !p.c && !p.o) printf("%s", text);
 
     if (p.o && numMatch) {
-      // printf("%s:", fileName);
       for (int i = match[0].rm_so; i < match[0].rm_eo; i++) {
         printf("%c", text[i]);
       }
