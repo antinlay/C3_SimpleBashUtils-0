@@ -1,10 +1,10 @@
 #ifndef SRC_GREP_S21_GREP_H_
 #define SRC_GREP_S21_GREP_H_
 
+#include <getopt.h>
 #include <regex.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
 #define BSIZE 1000000
 
 struct greph {
@@ -30,4 +30,4 @@ void edit_file(regex_t rgx, char *fileName);
 void greph_logic(int argc, char *argv[], char *buff);
 int options(char flag, char *phrase);
 
-#endif  // SRC_GREP_S21_GREP_H_
+#endif // SRC_GREP_S21_GREP_H_

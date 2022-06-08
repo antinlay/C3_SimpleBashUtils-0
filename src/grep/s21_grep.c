@@ -23,6 +23,12 @@ void init() {
   p.file = NULL;
 }
 
+int no_flags() {
+  size_t ok = 0;
+  if (p.c + p.e + p.f + p.h + p.i + p.l + p.n + p.o + p.s + p.v == 0) ok = 1;
+  return ok;
+}
+
 int options(char flag, char *phrase) {
   int ok = 0;
   switch (flag) {
@@ -75,14 +81,14 @@ int parser(int argc, char *argv[], char *phrase) {
       ok = -1;
     }
   }
-  for (int j = argc; j > 0; j--) {
-    flag = getopt(argc, argv, "e:ivclnhsf:o");
-    if (flag) {
-      options(flag, phrase);
-    } else {
-      ok = -1;
-    }
-  }
+  // for (int j = argc; j > 0; j--) {
+  //   flag = getopt(argc, argv, "e:ivclnhsf:o");
+  //   if (flag) {
+  //     options(flag, phrase);
+  //   } else {
+  //     ok = -1;
+  //   }
+  // }
   return ok;
 }
 
@@ -119,8 +125,8 @@ void greph(char *phrase, char *fileName) {
 
 void edit_file(regex_t rgx, char *fileName) {
   char text[BSIZE] = "";
-  char lastFileName[BSIZE] = "";
-  strcpy(lastFileName, fileName);
+  // char lastFileName[BSIZE] = "";
+  // strcpy(lastFileName, fileName);
   regmatch_t match[1];
   int strMatch = 0, numStr = 1;
 
@@ -130,14 +136,12 @@ void edit_file(regex_t rgx, char *fileName) {
 
     if ((regStatus == 0 && !p.v) || (regStatus == REG_NOMATCH && p.v))
       numMatch = 1;
-    if (numMatch && !p.l && !p.c && p.n) printf("%d:", numStr);
-    if (numMatch && !p.l && !p.c && !p.o) printf("%s", text);
-
     if (numMatch &&
         (p.c + p.e + p.f + p.h + p.i + p.l + p.n + p.o + p.s + p.v == 0)) {
-      printf((strcmp(lastFileName, fileName)) ? "%s:\n" : "%s:", fileName);
-      strcpy(lastFileName, fileName);
+      printf("%s:", fileName);
     }
+    if (numMatch && !p.l && !p.c && p.n) printf("%d:", numStr);
+    if (numMatch && !p.l && !p.c && !p.o) printf("%s", text);
 
     if (p.o && numMatch) {
       // printf("%s:", fileName);
@@ -164,9 +168,8 @@ void greph_logic(int argc, char *argv[], char *buff) {
     int fileFlag = (argc - optind > 1) ? 1 : 0;
 
     for (int i = optind; i < argc; i++) {
-      if (fileFlag && !p.h && !p.l && !p.o) printf("%s:", argv[i]);
-      // if (p.c + p.e + p.f + p.h + p.i + p.l + p.n + p.o + p.s + p.v == 0)
-      //   printf("%s:", argv[i]);
+      if (fileFlag && !p.h && !p.l && !p.o && no_flags() != 1)
+        printf("%s:", argv[i]);
       greph(phrase, argv[i]);
     }
   }
