@@ -15,7 +15,7 @@ check:
 ifeq ($(OS), Darwin)
 	leaks --atExit -- ./s21_grep -f phrase.txt s21_grep.h
 else
-	CK_FORK=no valgrind --vgdb=no --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=RESULT_VALGRIND.txt s21_grep -f phrase.txt s21_grep.h
+	CK_FORK=no valgrind --vgdb=no --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=RESULT_VALGRIND.txt ./s21_grep -f phrase.txt s21_grep.h
 endif
 
 clean:
