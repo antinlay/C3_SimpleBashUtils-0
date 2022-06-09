@@ -6,7 +6,6 @@
 #include <getopt.h>
 #include <regex.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #define BSIZE 1000000

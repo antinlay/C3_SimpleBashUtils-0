@@ -34,11 +34,11 @@ int options(char flag, char *phrase) {
   switch (flag) {
     case 'e':
       p.e = 1;
-      sprintf(phrase, optarg);
+      strcpy(phrase, optarg);
       break;
     case 'f':
       p.f = 1;
-      sprintf(phrase, optarg);
+      strcpy(phrase, optarg);
       break;
     case 'o':
       p.o = 1;
@@ -148,9 +148,9 @@ void edit_file(regex_t rgx, char *fileName, char argc) {
 void greph_logic(int argc, char *argv[], char *buff) {
   char phrase[BSIZE] = "";
   int ok = 0;
-  if (!p.f && !p.e) sprintf(phrase, argv[optind++]);
+  if (!p.f && !p.e) strcpy(phrase, argv[optind++]);
   if (p.f) ok = phrase_file(phrase, buff);
-  if (!p.f && p.e) sprintf(phrase, buff);
+  if (!p.f && p.e) strcpy(phrase, argv[optind++]);
 
   if (ok != -1) {
     for (int i = optind; i < argc; i++) {
