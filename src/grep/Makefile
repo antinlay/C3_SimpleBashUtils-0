@@ -8,14 +8,14 @@ s21_grep:
 
 check:
 	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config s21_grep.c
-	cp ../materials/linters/CPPLINT.cfg CPPLINT.cfg
-	python3 ../materials/linters/cpplint.py --extensions=c cat/s21_cat.* s21_grep.*
+	cp ../../materials/linters/CPPLINT.cfg CPPLINT.cfg
+	python3 ../../materials/linters/cpplint.py --extensions=c s21_grep.*
 	rm CPPLINT.cfg
 	make s21_grep
 ifeq ($(OS), Darwin)
-	leaks --atExit -- s21_grep -e bytes.txt
+	leaks --atExit -- ./s21_grep -f phrase.txt s21_grep.h
 else
-	CK_FORK=no valgrind --vgdb=no --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=RESULT_VALGRIND.txt s21_grep -e 127 bytes.txt
+	CK_FORK=no valgrind --vgdb=no --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=RESULT_VALGRIND.txt s21_grep -f phrase.txt s21_grep.h
 endif
 
 clean:

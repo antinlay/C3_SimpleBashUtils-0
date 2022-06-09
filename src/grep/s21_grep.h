@@ -1,10 +1,12 @@
 #ifndef SRC_GREP_S21_GREP_H_
 #define SRC_GREP_S21_GREP_H_
 
+#include <errno.h>
 #include <getopt.h>
 #include <regex.h>
 #include <stdio.h>
 #include <string.h>
+
 #define BSIZE 1000000
 
 struct greph {
@@ -25,9 +27,9 @@ struct greph {
 void init();
 int parser(int argc, char *argv[], char *phrase);
 int phrase_file(char *phrase, char *buff);
-void greph(char *phrase, char *fileName);
-void edit_file(regex_t rgx, char *fileName);
+void greph(char *phrase, char *fileName, char argc);
+void edit_file(regex_t rgx, char *fileName, char argc);
 void greph_logic(int argc, char *argv[], char *buff);
 int options(char flag, char *phrase);
 
-#endif // SRC_GREP_S21_GREP_H_
+#endif  // SRC_GREP_S21_GREP_H_

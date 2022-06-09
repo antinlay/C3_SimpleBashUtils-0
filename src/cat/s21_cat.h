@@ -1,6 +1,7 @@
 #ifndef SRC_CAT_S21_CAT_H_
 #define SRC_CAT_S21_CAT_H_
 
+#include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>

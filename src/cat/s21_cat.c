@@ -122,7 +122,7 @@ int process_file(char *argv[], size_t count) {
     p.sumStr = countStr;
     fclose(p.file);
   } else {
-    fprintf(stderr, "cat: %s: %s\n", argv[count], strerror(2));
+    fprintf(stderr, "cat: %s: %s\n", argv[count], strerror(errno));
     ok = -1;
   }
   return ok;
