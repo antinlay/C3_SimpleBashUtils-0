@@ -34,11 +34,11 @@ int options(char flag, char *phrase) {
   switch (flag) {
     case 'e':
       p.e = 1;
-      sprintf(phrase, optarg);
+      snprintf(phrase, BSIZE, optarg);
       break;
     case 'f':
       p.f = 1;
-      sprintf(phrase, optarg);
+      snprintf(phrase, BSIZE, optarg);
       break;
     case 'o':
       p.o = 1;
