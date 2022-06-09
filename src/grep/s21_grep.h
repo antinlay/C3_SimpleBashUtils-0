@@ -1,5 +1,6 @@
 #ifndef SRC_GREP_S21_GREP_H_
 #define SRC_GREP_S21_GREP_H_
+#define _GNU_SOURCE
 
 #include <errno.h>
 #include <getopt.h>
