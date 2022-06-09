@@ -9,7 +9,7 @@ s21_grep:
 check:
 	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config s21_grep.c
 	cp ../../materials/linters/CPPLINT.cfg CPPLINT.cfg
-	python3 ../../materials/linters/cpplint.py --extensions=c s21_grep.*
+	python3 ../../materials/linters/cpplint.py --extensions=c s21_grep.c s21_grep.h
 	rm CPPLINT.cfg
 	make s21_grep
 ifeq ($(OS), Darwin)
