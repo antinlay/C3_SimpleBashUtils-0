@@ -4,9 +4,9 @@ int main(int argc, char *argv[]) {
   size_t ok = 0;
   init();
   if (argc > 1) {
-    size_t count = 1;
+    size_t count = 1, i = 0;
     while (count < (size_t)argc) {
-      int i = 0;
+      i = 0;
       if (argv[count][i] == '-') {
         for (; argv[count][i]; i++) {
           char arg = argv[count][i];
@@ -18,6 +18,7 @@ int main(int argc, char *argv[]) {
       }
       count++;
     }
+  } else {
   }
   return ok;
 }
